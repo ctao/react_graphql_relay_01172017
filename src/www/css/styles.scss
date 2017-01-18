@@ -9,3 +9,13 @@ body {
     border: 1px solid black;
     color: green;
 }
+
+.book-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+
+.app-container {
+    padding: 30px;
+}

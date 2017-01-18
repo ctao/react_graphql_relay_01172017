@@ -210,10 +210,10 @@
       "id": 14
     },
     {
-      "title": "History of People",
-      "category": "Historical",
-      "price": 1.99,
-      "authorId": 1,
+      "title": "Hana",
+      "category": "Romance",
+      "price": 11,
+      "authorId": "1",
       "id": 15
     }
   ]

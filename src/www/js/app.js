@@ -3,7 +3,7 @@ import '../css/styles.scss';
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-import {getBooks} from './services';
+import {query} from './services';
 
 class App extends Component {
 
@@ -12,27 +12,29 @@ class App extends Component {
             <div>
                 <h1>{'Welcome to React/GraphQL/Relay!'}</h1>
                 <h2>{this.props.message}</h2>
-                <table className = "book-table">
-                    {
-                        this.props.books.map((book) => {
-                            return (
-                                <tr key = {book.id}>
-                                    <td>
-                                        {book.id}
-                                    </td>
-                                    <td>
-                                        {book.title}
-                                    </td>
-                                    <td>
-                                        {book.category}
-                                    </td>
-                                    <td>
-                                        {book.price}
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
+                <table className = 'book-table'>
+                    <tbody>
+                        <tr>
+                            <th>{'Book ID'}</th>
+                            <th>{'Title'}</th>
+                            <th>{'Category'}</th>
+                            <th>{'Price'}</th>
+                            <th>{'Author'}</th>
+                        </tr>
+                        {
+                            this.props.books.map((book) => {
+                                return (
+                                    <tr key={book.id}>
+                                        <td>{book.id}</td>
+                                        <td>{book.title}</td>
+                                        <td>{book.category}</td>
+                                        <td>{book.price}</td>
+                                        <td>{book.author.fullName}</td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
         );
@@ -47,16 +49,20 @@ class AppContainer extends Component {
 
         this.state = {
             message: '',
-            books: []
+            books: [],
+            authors: []
         };
     }
 
     componentDidMount() {
-        getBooks().then((results => {
+        query().then((results) => {
+            console.log(results);
             this.setState({
-                books: results.books
+                books: results.books,
+                message: results.message,
+                authors: results.authors
             });
-        }));
+        });
     }
 
     render() {
@@ -71,7 +77,8 @@ class AppContainer extends Component {
 
 App.propTypes = {
     message: PropTypes.string,
-    books: PropTypes.array
+    books: PropTypes.array,
+    authors: PropTypes.array
 };
 
 ReactDOM.render(<AppContainer />, document.querySelector('main'));
